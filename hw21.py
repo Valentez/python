@@ -1,0 +1,3 @@
+mylist = [3.14, 'kote', (5, 7, 11), {'hw1': 1, 'hw2':0}, [100, 200, 300], set([500, 600, 700])]
+for i in mylist:
+    print(type(i))
