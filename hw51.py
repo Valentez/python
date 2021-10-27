@@ -9,9 +9,8 @@ with open("hw51.txt", "a") as file:
         file.write(f"{inputString}\n")
         inputString = input("Please, input yours string(for exit, input 'q'): ")
         if inputString == "q":
-            file = open("hw51.txt", "r")
-            print(file.read())
             file.close()
             break
-
-
+file = open("hw51.txt", "r")
+print(file.read())
+file.close()
