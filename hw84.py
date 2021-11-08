@@ -11,6 +11,11 @@
 Для хранения данных о наименовании и количестве единиц оргтехники, а также других данных, 
 можно использовать любую подходящую структуру, например словарь.
 """
+"""
+Продолжить работу над вторым заданием. Реализуйте механизм валидации вводимых пользователем данных. 
+Например, для указания количества принтеров, отправленных на склад, нельзя использовать строковый 
+тип данных.
+"""
 
 
 def validate(func):
@@ -18,15 +23,15 @@ def validate(func):
         try:
             func(*args, **kwargs)
         except ValueError:
-            print("Недостаточно техники на складе!")
+            print("Have not so much of technics")
         except KeyError:
-            print("Нет такого типа оргтехники на складе!")
+            print("Have not what are you want")
     return wrapper
 
 
 class Storage:
     """
-    equipment_units имеет следующую структуру
+    equipment_units include
     equipment_units = {
     "equipment_type": {
     "name": {
@@ -64,8 +69,16 @@ class Equipment:
         self.name = name
         self.model = model
         self.eq_type = eq_type
-        self.__count = count
-        self.update_storage_info()
+        try:
+            if type(count) not in int:
+                self.__count = 0
+                raise TypeError
+        except TypeError:
+            print("Wrong data input!!!!")
+        else:
+            self.__count = count
+        finally:
+            self.update_storage_info()
 
     def update_storage_info(self):
         equipment_storage_info = Storage.equipment_units.get(self.eq_type, {})
@@ -112,5 +125,5 @@ my_xerox_1 = Xerox('Xerox', 'R4000', 1, 'yes')
 
 
 Storage.storage_to(unit_type="Printer", unit_name="Ricoh", unit_model="MPC2004", unit_count=2)
-Storage.storage_from(unit_type="Scanner", unit_name="HP", unit_model="456H", unit_count=2)
+Storage.storage_from(unit_type="Scanner", unit_name="HP", unit_model="456H", unit_count='A')
 Storage.get_all_equipment()
